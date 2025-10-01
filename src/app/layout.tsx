@@ -1,16 +1,12 @@
+import { GeistSans } from 'geist/font/sans'
 import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
-import { Geist } from 'next/font/google'
 
 import { ApolloClientProvider } from '@/providers/ApolloClientProvider'
 
+import { ThemeProvider } from '@/providers/ThemeProvider'
 import '../styles/globals.css'
-
-const geistSans = Geist({
-	variable: '--font-geist-sans',
-	subsets: ['latin']
-})
 
 export const metadata: Metadata = {
 	title: 'Create Next App',
@@ -27,10 +23,10 @@ export default async function RootLayout({
 
 	return (
 		<html lang={locale}>
-			<body className={`${geistSans.variable} antialiased`}>
+			<body className={`${GeistSans.variable} antialiased`}>
 				<ApolloClientProvider>
 					<NextIntlClientProvider messages={messages}>
-						{children}
+						<ThemeProvider attribute="class" defaultTheme="light" disableTransitionOnChange>{children} </ThemeProvider>
 					</NextIntlClientProvider>
 				</ApolloClientProvider>
 			</body>
